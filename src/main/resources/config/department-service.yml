@@ -1,0 +1,13 @@
+## [!] 프로젝트 이름과 YAML 파일 이름이 동일해야한다.
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

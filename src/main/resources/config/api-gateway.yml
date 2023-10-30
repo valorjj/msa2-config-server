@@ -1,0 +1,33 @@
+## Port
+server:
+  port: 8060
+
+## Eureka
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+## Zipkin
+management:
+  tracing:
+    sampling:
+      # 테스트 목적으로 100% 설정
+      probability: 1.0
+
+spring:
+  # /employee/** 로 들어오는 모든 요청이 유레카 서버에 등록된
+  # employee-service 로 라우팅 된다.
+  # 현재 msa2-employee-service 어플리케이션에 spring.application.name 으로 설정된 값이다.
+  #
+  cloud:
+    gateway:
+      routes:
+        - id: employee-service
+          uri: lb://employee-service
+          predicates:
+            - Path=/employee/**
+        - id: department-service
+          uri: lb://department-service
+          predicates:
+            - Path=/department/**
